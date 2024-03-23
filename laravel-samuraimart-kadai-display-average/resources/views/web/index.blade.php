@@ -14,9 +14,9 @@
         <div class="col-4">
           <a href="{{route('products.show', $recommend_product)}}">
             @if ($recommend_product->image)
-             <img src="{{asset($recommend_product->image)}}" class="img-thumbnail">
+             <img src="{{asset($recommend_product->image)}}" class=" img-fluid" style="height: 250px; width:300px;">
             @else
-             <img src="{{asset('img/chestnut.jpg')}}" class="img-thumbnail">
+             <img src="{{asset('img/chestnut.jpg')}}" class=" img-fluid" style="height: 250px; width:300px;">
             @endif
           </a>
           <div class="row">
@@ -25,16 +25,16 @@
               {{$recommend_product->name}}<br>
               {{-- star core --}}
               @foreach ($review_scores as $score)
-              @if ((round($score->where('product_id', $recommend_product->id)->avg('score'), 1)) > 0)
-                  <span class="samuraimart-star-rating-index" data-rate="{{(round($score->where('product_id', $recommend_product->id)->avg('score') * 2)) / 2}}">
-                  {{round($score->where('product_id', $recommend_product->id)->avg('score'), 1)}}
-                  </span>
-                  <br>
-                  @break
-              @endif
-              <label class="samuraimart-star-rating" data-rate="0"></label><br>
-              @break
-       @endforeach
+                @if ((round($score->where('product_id', $recommend_product->id)->avg('score'), 1)) > 0)
+                    <span class="samuraimart-star-rating-index" data-rate="{{(round($score->where('product_id', $recommend_product->id)->avg('score') * 2)) / 2}}">
+                    {{round($score->where('product_id', $recommend_product->id)->avg('score'), 1)}}
+                    </span>
+                    <br>
+                    @break
+                @endif
+                <label class="samuraimart-star-rating" data-rate="0"></label><br>
+                @break
+            @endforeach
               <label>&yen;{{$recommend_product->price}}</label>
               </p>
             </div>
@@ -53,9 +53,9 @@
           <div class="col-3">
               <a href="{{route('products.show', $recently_product)}}">
                 @if ($recently_product->image !== "")
-                    <img src="{{asset($recently_product->image)}}"  class="img-thumbnail">
+                    <img src="{{asset($recently_product->image)}}" class=" img-fluid" style="height: 250px; width:300px;">
                 @else
-                    <img src="{{asset('img/sofa.jpg')}}" class="img-thumbnail">
+                    <img src="{{asset('img/sofa.jpg')}}"class=" img-fluid" style="height: 250px; width:300px;">
                 @endif
               </a>
               <div class="row">

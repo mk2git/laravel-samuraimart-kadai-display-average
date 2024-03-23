@@ -29,9 +29,9 @@
           <div class="col-3">
             <a href="{{route('products.show', $product)}}">
               @if ($product->image !== "")
-                <img src="{{asset($product->image)}}" class="img-thumbnail">
+                <img src="{{asset($product->image)}}" class=" img-fluid" style="height: 250px; width:300px;">
               @else
-                <img src="{{asset('img/dummy.png')}}" class="img-thumbnail">
+                <img src="{{asset('img/dummy.png')}}" class=" img-fluid" style="height: 250px; width:300px;">
               @endif
             </a>
             <div class="row">
