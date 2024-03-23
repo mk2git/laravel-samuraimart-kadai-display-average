@@ -23,6 +23,18 @@
             <div class="col-12">
               <p class="samuraimart-product-label mt-2">
               {{$recommend_product->name}}<br>
+              {{-- star core --}}
+              @foreach ($review_scores as $score)
+              @if ((round($score->where('product_id', $recommend_product->id)->avg('score'), 1)) > 0)
+                  <span class="samuraimart-star-rating-index" data-rate="{{(round($score->where('product_id', $recommend_product->id)->avg('score') * 2)) / 2}}">
+                  {{round($score->where('product_id', $recommend_product->id)->avg('score'), 1)}}
+                  </span>
+                  <br>
+                  @break
+              @endif
+              <label class="samuraimart-star-rating" data-rate="0"></label><br>
+              @break
+       @endforeach
               <label>&yen;{{$recommend_product->price}}</label>
               </p>
             </div>
@@ -49,6 +61,19 @@
               <div class="row">
                   <div class="col-12">
                       <p class="samuraimart-product-label mt-2">{{$recently_product->name}} <br>
+
+                      @foreach ($review_scores as $score)
+                            @if ((round($score->where('product_id', $recently_product->id)->avg('score'), 1)) > 0)
+                                <span class="samuraimart-star-rating-index" data-rate="{{(round($score->where('product_id', $recently_product->id)->avg('score') * 2)) / 2}}">
+                                {{round($score->where('product_id', $recently_product->id)->avg('score'), 1)}}
+                                </span>
+                                <br>
+                                @break
+                            @endif
+                            <label class="samuraimart-star-rating" data-rate="0"></label><br>
+                            @break
+                     @endforeach
+
                         <label>&yen;{{$recently_product->price}}</label>
                       </p>
                   </div>

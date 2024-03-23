@@ -3,6 +3,9 @@
 @section('content')
   <div class="d-flex justify-content-center">
     <div class="row w-75">
+        <p>
+            <a href="{{route('top')}}">トップ</a> > <a href="{{route('products.index')}}">{{$product->category->name}}</a> > {{$product->name}}
+        </p>
       <div class="col-5 offset-1">
           @if ($product->image !== "")
             <img src="{{asset($product->image)}}" class="w-100 img-fluid">
@@ -13,6 +16,15 @@
       <div class="col">
         <div class="d-flex flex-column">
           <h1>{{$product->name}}</h1>
+          {{-- star score --}}
+          @if ($star_score > 0)
+          <div class="star">
+            <span class="samuraimart-star-rating" data-rate="{{$star_score}}"></span>
+            <span>{{$score}}</span>
+          </div>
+          @else
+            <p class="samuraimart-star-rating" data-rate="0"></p>
+          @endif
           <p>{{$product->description}}</p>
           <hr>
           <p class="d-flex align-items-end">&yen; {{$product->price}}(税込)</p>
@@ -67,10 +79,18 @@
         <a href="{{route('products.index')}}"> Back</a>
         @endauth
       </div>
-
       <div class="offset-1 col-11">
         <hr class="w-100">
         <h3 class="float-left">カスタマーレビュー</h3>
+        {{-- star score --}}
+          @if ($star_score > 0)
+          <div class="star">
+            <span class="samuraimart-star-rating-index h5" data-rate="{{$star_score}}"> {{$score}}</span>
+          </div>
+
+          @else
+            <h4 class="samuraimart-star-rating" data-rate="0"></h4>
+          @endif
       </div>
 
       <div class="offset-1 col-10">
@@ -81,7 +101,7 @@
             <div class="offset-md-5 col-md-5">
               <h3 class="review-score-color">{{str_repeat('★', $review->score)}}</h3>
               <p class="h3">{{$review->title}}</p>
-              <p class="h3">{{$review->content}}</p>
+              <p class="text-muted">{{$review->content}}</p>
               <label>{{$review->created_at}} {{$review->user->name}}</label>
             </div>
           @endforeach

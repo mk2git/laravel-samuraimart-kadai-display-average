@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Review;
 use App\Models\MajorCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,9 @@ class ProductController extends Controller
         $categories = Category::all();
         $major_categories = MajorCategory::all();
 
-        return view('products.index', compact('products', 'category', 'major_category', 'categories', 'major_categories', 'total_count', 'keyword'));
+        $review_scores = Review::select('product_id', 'score')->get();
+
+        return view('products.index', compact('products', 'category', 'major_category', 'categories', 'major_categories', 'total_count', 'keyword', 'review_scores'));
     }
 
     /**
@@ -82,7 +85,10 @@ class ProductController extends Controller
     {
         $reviews = $product->reviews()->get();
 
-        return view('products.show', compact('product', 'reviews'));
+        $star_score = (round((Review::where('product_id', $product->id)->avg('score') * 2))) / 2;
+        $score = round(Review::where('product_id', $product->id)->avg('score'), 1);
+
+        return view('products.show', compact('product', 'reviews', 'star_score', 'score'));
     }
 
     /**
